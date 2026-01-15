@@ -7,6 +7,7 @@
         "dev": "vite"
     },
     "devDependencies": {
+        "@tailwindcss/typography": "^0.5.19",
         "@tailwindcss/vite": "^4.1.12",
         "axios": "^1.11.0",
         "concurrently": "^9.0.1",
@@ -22,11 +23,14 @@
         "@fullcalendar/list": "^6.1.19",
         "@fullcalendar/timegrid": "^6.1.19",
         "@popperjs/core": "^2.11.8",
+        "@tiptap/extension-image": "^3.15.2",
         "alpinejs": "^3.15.3",
         "apexcharts": "^5.3.5",
         "flatpickr": "^4.6.13",
         "jsvectormap": "^1.7.0",
         "prismjs": "^1.30.0",
-        "swiper": "^12.0.3"
+        "quill": "^2.0.3",
+        "swiper": "^12.0.3",
+        "tom-select": "^2.4.3"
     }
 }

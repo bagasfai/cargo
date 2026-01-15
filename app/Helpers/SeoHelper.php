@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Helpers;
+
+use Artesaos\SEOTools\Facades\SEOTools;
+
+class SeoManager
+{
+    public static function forBlog($blog): void
+    {
+        SEOTools::setTitle(
+            $blog->seo_title ?: $blog->title
+        );
+
+        SEOTools::setDescription(
+            $blog->seo_description ?: $blog->excerpt
+        );
+
+        SEOTools::opengraph()->setUrl(url()->current());
+        SEOTools::opengraph()->addProperty('type', 'article');
+
+        if ($blog->seo_keywords) {
+            SEOTools::metatags()->addKeyword(
+                explode(',', $blog->seo_keywords)
+            );
+        }
+    }
+}
