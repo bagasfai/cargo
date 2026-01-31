@@ -30,6 +30,4 @@
         'delete' => 'blog-categories.destroy',
     ]" />
 
-
-    {{ $categories->links() }}
 @endsection

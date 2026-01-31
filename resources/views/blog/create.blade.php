@@ -43,16 +43,6 @@
                 </div>
             </div>
 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
             {{-- Actions --}}
             <div class="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-800">
                 <a href="{{ route('blogs.index') }}"

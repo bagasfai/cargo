@@ -1,4 +1,4 @@
-@props(['columns', 'rows', 'route', 'actions' => null])
+@props(['class', 'columns', 'rows', 'route', 'actions' => null])
 
 <div x-data="{
     filters: @js(request()->all()),
@@ -17,7 +17,10 @@
 
         window.location = url.toString();
     }
-}" class="space-y-4">
+}" @select-change.window="
+    filters[$event.detail.name] = $event.detail.value;
+    apply();
+" class="space-y-4 {{ $class ?? '' }}">
 
     {{-- Table --}}
     <div class="overflow-x-auto rounded-xl border bg-white dark:bg-gray-900 dark:border-gray-800">

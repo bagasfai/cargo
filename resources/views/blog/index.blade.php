@@ -19,5 +19,4 @@
         'delete' => 'blogs.destroy',
     ]" />
 
-    {{ $blogs->links() }}
 @endsection

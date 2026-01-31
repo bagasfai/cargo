@@ -1,30 +1,31 @@
 @extends('layouts.app')
 
-@section('title', 'Create Tag Blog')
+@section('title', 'Edit Province')
 
 @section('content')
     <div class="max-w-5xl mx-auto space-y-6">
 
         {{-- Header --}}
         <div class="flex justify-between items-center">
-            <x-ui.heading level="h1">Create Tag Blog</x-ui.heading>
+            <x-ui.heading level="h1">Edit Province</x-ui.heading>
 
-            <a href="{{ route('blog-tags.index') }}" class="text-sm text-gray-600 dark:text-gray-400 hover:underline">
-                ← Back to Blog Tags
+            <a href="{{ route('provinces.index') }}" class="text-sm text-gray-600 dark:text-gray-400 hover:underline">
+                ← Back to Provinces
             </a>
         </div>
 
-        <form action="{{ route('blog-tags.store') }}" method="POST" class="space-y-6">
+        <form action="{{ route('provinces.update', $province) }}" method="POST" class="space-y-6">
             @csrf
+            @method('PUT')
             <div class="grid grid-cols-1 gap-6">
                 <div class="lg:col-span-2 space-y-6">
-                    @include('blog_tag.multi-tag-input')
+                    <x-form.input name="name" label="Name" placeholder="Enter province name" :value="old('name', $province->name)" />
                 </div>
             </div>
 
             {{-- Actions --}}
             <div class="flex justify-end gap-3 pt-4">
-                <a href="{{ route('blog-tags.index') }}"
+                <a href="{{ route('provinces.index') }}"
                     class="px-4 py-2 rounded-lg border
                       text-gray-700 dark:text-gray-300
                       border-gray-300 dark:border-gray-700">
@@ -32,7 +33,7 @@
                 </a>
 
                 <x-ui.button type="submit">
-                    Save
+                    Update
                 </x-ui.button>
             </div>
         </form>

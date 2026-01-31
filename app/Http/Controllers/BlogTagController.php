@@ -11,11 +11,12 @@ class BlogTagController extends Controller
     public function index(Request $request)
     {
         $title = 'Blog Tags';
-        $search = $request->get('search');
 
         $tags = BlogTag::query()
-            ->when($search, function ($query) use ($search) {
-                $query->where('name', 'like', "%{$search}%");
+            ->when($request->name, fn($q) => $q->where('name', 'like', "%{$request->name}%"))
+            ->when($request->created_at, fn($q) => $q->whereDate('created_at', $request->created_at))
+            ->when($request->sort, function ($q) use ($request) {
+                $q->orderBy($request->sort, $request->direction);
             })
             ->orderBy('created_at', 'desc')
             ->paginate(10)

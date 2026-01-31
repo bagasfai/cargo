@@ -20,17 +20,42 @@ class MenuHelper
             [
                 'icon' => 'blog',
                 'name' => 'Blogs',
-                'path' => '/admin/blogs'
+                'subItems' => [
+                    [
+                        'name' => 'Blogs',
+                        'path' => '/admin/blogs'
+                    ],
+                    [
+                        'name' => 'Categories',
+                        'path' => '/admin/blog-categories'
+                    ],
+                    [
+                        'name' => 'Tags',
+                        'path' => '/admin/blog-tags'
+                    ],
+                ]
             ],
             [
-                'icon' => 'calendar',
-                'name' => 'Blog Categories',
-                'path' => '/admin/blog-categories'
-            ],
-            [
-                'icon' => 'tags',
-                'name' => 'Blog Tags',
-                'path' => '/admin/blog-tags'
+                'icon' => 'location',
+                'name' => 'Locations',
+                'subItems' => [
+                    [
+                        'name' => 'Provinces',
+                        'path' => '/admin/provinces'
+                    ],
+                    [
+                        'name' => 'Cities',
+                        'path' => '/admin/cities'
+                    ],
+                    [
+                        'name' => 'Districts',
+                        'path' => '/admin/districts'
+                    ],
+                    [
+                        'name' => 'Villages',
+                        'path' => '/admin/villages'
+                    ]
+                ]
             ],
         ];
     }
@@ -73,6 +98,11 @@ class MenuHelper
             'tags' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 0 1-1.125-1.125v-3.75ZM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-8.25ZM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-2.25Z" />
             </svg>',
+
+            'location' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+            </svg>'
         ];
 
         return $icons[$iconName] ?? '<svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/></svg>';
