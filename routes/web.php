@@ -24,8 +24,8 @@ Route::get('/admin', function () {
     }
 });
 
-Route::resource('users', UserController::class);
 Route::prefix('admin')->middleware(['auth'])->group(function () {
+    Route::resource('users', UserController::class);
     Route::resource('blogs', BlogController::class);
     Route::resource('blog-categories', BlogCategoryController::class);
     Route::resource('blog-tags', BlogTagController::class);

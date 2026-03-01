@@ -21,9 +21,11 @@ class BlogTagRequest extends FormRequest
      */
     public function rules(): array
     {
+        $blogTag = $this->route('blogTag');
+        
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string', 'max:500'],
+            'name' => ['required', 'string', 'max:255', 'unique:blog_tags,name,' . ($blogTag->id ?? 'NULL')],
+            'slug' => ['nullable', 'string', 'max:255', 'unique:blog_tags,slug,' . ($blogTag->id ?? 'NULL')],
         ];
     }
 }

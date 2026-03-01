@@ -45,18 +45,28 @@ class BlogController extends Controller
             $blog = Blog::create($data);
 
             // Categories
-            $blog->categories()->sync($request->categories);
+            if (!empty($request->categories)) {
+                $blog->categories()->sync($request->categories);
+            }
 
-            // Tags
-            $tags = collect($request->tags)
+            // Tags - handle as array or string
+            $tagInput = $request->tags ?? [];
+            if (is_string($tagInput)) {
+                $tagInput = explode(',', $tagInput);
+            }
+            
+            $tags = collect($tagInput)
                 ->map(fn($tag) => trim($tag))
                 ->filter()
+                ->unique()
                 ->map(
                     fn($tag) =>
                     BlogTag::firstOrCreate(['name' => $tag])
                 );
 
-            $blog->tags()->sync($tags->pluck('id'));
+            if ($tags->count() > 0) {
+                $blog->tags()->sync($tags->pluck('id'));
+            }
         });
 
         return redirect()
@@ -89,17 +99,30 @@ class BlogController extends Controller
 
             $blog->update($data);
 
-            $blog->categories()->sync($request->categories);
+            if (!empty($request->categories)) {
+                $blog->categories()->sync($request->categories);
+            }
 
-            $tags = collect(explode(',', $request->tags))
+            // Tags - handle as array or string
+            $tagInput = $request->tags ?? [];
+            if (is_string($tagInput)) {
+                $tagInput = explode(',', $tagInput);
+            }
+            
+            $tags = collect($tagInput)
                 ->map(fn($tag) => trim($tag))
                 ->filter()
+                ->unique()
                 ->map(
                     fn($tag) =>
                     BlogTag::firstOrCreate(['name' => $tag])
                 );
 
-            $blog->tags()->sync($tags->pluck('id'));
+            if ($tags->count() > 0) {
+                $blog->tags()->sync($tags->pluck('id'));
+            } else {
+                $blog->tags()->sync([]);
+            }
         });
 
         return back()->with('success', 'Blog berhasil diperbarui');

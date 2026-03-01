@@ -37,10 +37,9 @@ class BlogRequest extends FormRequest
             'author_id' => ['nullable', 'exists:users,id'],
 
             'categories' => ['nullable', 'array'],
-            'categories.*' => ['exists:blog_categories,id'],
+            'categories.*' => ['integer', 'exists:blog_categories,id'],
 
-            'tags' => ['nullable', 'array'],
-            'tags.*' => ['exists:blog_tags,name'],
+            'tags' => ['nullable'],
         ];
     }
 }
