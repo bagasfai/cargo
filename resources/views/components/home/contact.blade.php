@@ -35,7 +35,9 @@
                 <a href="tel:081218829872" class="inline-flex flex-1 items-center justify-center rounded-2xl bg-[#CD2028] px-4 py-3 text-base font-semibold text-white shadow-lg shadow-[#cd2028]/20">Telepon Sekarang</a>
                 <a href="https://wa.me/6281218829872" target="_blank" rel="noopener" class="inline-flex flex-1 items-center justify-center rounded-2xl border border-gray-200 px-4 py-3 text-base font-semibold text-gray-900">WhatsApp</a>
             </div>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4787.898635345804!2d106.65561149999999!3d-6.174474399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f8e701faaaab%3A0x9b5179e9d3709c3f!2sPT%20GUMARANG%20INDO%20EXPRESS!5e1!3m2!1sen!2sid!4v1773068238284!5m2!1sen!2sid" width="500" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="relative w-full overflow-hidden rounded-3xl shadow-sm shadow-gray-200/60" style="padding-top: 62.5%;">
+                <iframe class="absolute inset-0 h-full w-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4787.898635345804!2d106.65561149999999!3d-6.174474399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f8e701faaaab%3A0x9b5179e9d3709c3f!2sPT%20GUMARANG%20INDO%20EXPRESS!5e1!3m2!1sen!2sid!4v1773068238284!5m2!1sen!2sid" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;"></iframe>
+            </div>
         </div>
         <div class="space-y-4">
             @foreach ($contacts as $contact)
