@@ -9,7 +9,7 @@
     $defaultContact = [
         [
             'label' => 'Head Office',
-            'value' => 'Ruko Smart Market Blok F-02 Jl. Daan Mogot KM.19 Batu Ceper Tangerang',
+            'value' => 'Ruko Cendana, Blok A Jl. Benteng Betawi No.26, RT.001/RW.015, Poris Plawad, Kec. Tangerang, Kota Tangerang, Banten 15119',
         ],
         [
             'label' => 'Jam Operasional',
@@ -17,7 +17,7 @@
         ],
         [
             'label' => 'Kontak',
-            'value' => 'Customer Service 081 1152 4260',
+            'value' => 'Customer Service 0812-1882-9872',
         ],
     ];
 

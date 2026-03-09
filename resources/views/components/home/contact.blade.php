@@ -9,13 +9,13 @@
         [
             'title' => 'Warehouse Tangerang',
             'subtitle' => 'Alamat',
-            'details' => 'Ruko Smart Market Blok F-02 Jl. Daan Mogot KM.19 Batu Ceper Tangerang',
+            'details' => 'Ruko Cendana, Blok A Jl. Benteng Betawi No.26, RT.001/RW.015, Poris Plawad, Kec. Tangerang, Kota Tangerang, Banten 15119',
             'icon' => asset('images/home/location-marker.svg'),
         ],
         [
             'title' => 'Customer Service',
             'subtitle' => 'Telepon',
-            'details' => '081 1152 4260 | 021-5578-3388',
+            'details' => '0812-1882-9872',
             'icon' => asset('images/home/phone.svg'),
         ],
         [
@@ -32,9 +32,10 @@
         <div class="space-y-6 rounded-3xl bg-gray-50 p-6">
             <p class="text-base text-gray-600">Diskusikan kebutuhan logistik, cek tarif khusus proyek, atau jadwalkan kunjungan tim kami.</p>
             <div class="flex flex-col gap-3 sm:flex-row">
-                <a href="tel:08111524260" class="inline-flex flex-1 items-center justify-center rounded-2xl bg-[#CD2028] px-4 py-3 text-base font-semibold text-white shadow-lg shadow-[#cd2028]/20">Telepon Sekarang</a>
-                <a href="https://wa.me/628111524260" target="_blank" rel="noopener" class="inline-flex flex-1 items-center justify-center rounded-2xl border border-gray-200 px-4 py-3 text-base font-semibold text-gray-900">WhatsApp</a>
+                <a href="tel:081218829872" class="inline-flex flex-1 items-center justify-center rounded-2xl bg-[#CD2028] px-4 py-3 text-base font-semibold text-white shadow-lg shadow-[#cd2028]/20">Telepon Sekarang</a>
+                <a href="https://wa.me/6281218829872" target="_blank" rel="noopener" class="inline-flex flex-1 items-center justify-center rounded-2xl border border-gray-200 px-4 py-3 text-base font-semibold text-gray-900">WhatsApp</a>
             </div>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4787.898635345804!2d106.65561149999999!3d-6.174474399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f8e701faaaab%3A0x9b5179e9d3709c3f!2sPT%20GUMARANG%20INDO%20EXPRESS!5e1!3m2!1sen!2sid!4v1773068238284!5m2!1sen!2sid" width="500" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
         <div class="space-y-4">
             @foreach ($contacts as $contact)

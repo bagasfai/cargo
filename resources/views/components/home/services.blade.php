@@ -1,7 +1,7 @@
 @php
     $services = [
         [
-            'title' => 'Pengiriman Udara',
+            'title' => 'Pengiriman Kargo Via Udara',
             'description' => 'Pengiriman prioritas dengan jaringan cargo udara nasional.',
             'icon' => asset('images/home/pesawat.svg'),
         ],
@@ -21,13 +21,13 @@
             'icon' => asset('images/home/heavy-duty.svg'),
         ],
         [
-            'title' => 'Project Alat Berat',
-            'description' => 'Penanganan khusus untuk pengerjaan proyek dan logistik alat berat.',
+            'title' => 'Jasa Ekspedisi Jakarta Riau',
+            'description' => 'Layanan khusus untuk pengiriman barang ke seluruh wilayah Riau dengan armada yang disesuaikan.',
             'icon' => asset('images/home/heavy-duty.svg'),
         ],
         [
-            'title' => 'Pindahan Rumah',
-            'description' => 'Tim khusus untuk memastikan proses relokasi aman dan rapi.',
+            'title' => 'Jasa Ekspedisi Jakarta Sumbar',
+            'description' => 'Layanan khusus untuk pengiriman barang ke seluruh wilayah Sumatera Barat dengan armada yang disesuaikan.',
             'icon' => asset('images/home/rumah.svg'),
         ],
     ];

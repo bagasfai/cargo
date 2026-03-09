@@ -23,8 +23,8 @@
     ];
 
     $gallery = [
-        asset('images/home/why-us-1.svg'),
-        asset('images/home/why-us-2.svg'),
+        asset('images/home/why-us-1.jpeg'),
+        asset('images/home/why-us-2.jpeg'),
     ];
 @endphp
 
