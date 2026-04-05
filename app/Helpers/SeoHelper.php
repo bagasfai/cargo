@@ -2,11 +2,12 @@
 
 namespace App\Helpers;
 
+use App\Models\Blog;
 use Artesaos\SEOTools\Facades\SEOTools;
 
 class SeoManager
 {
-    public static function forBlog($blog): void
+    public static function forBlog(Blog $blog): void
     {
         SEOTools::setTitle(
             $blog->seo_title ?: $blog->title
@@ -22,6 +23,17 @@ class SeoManager
         if ($blog->seo_keywords) {
             SEOTools::metatags()->addKeyword(
                 explode(',', $blog->seo_keywords)
+            );
+        }
+
+        if ($blog->featured_image_url) {
+            SEOTools::opengraph()->addImage($blog->featured_image_url);
+        }
+
+        if ($blog->published_at) {
+            SEOTools::opengraph()->addProperty(
+                'article:published_time',
+                $blog->published_at->toIso8601String()
             );
         }
     }

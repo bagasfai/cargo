@@ -5,9 +5,9 @@
         <x-hero />
         <x-home.why-us />
         <x-home.services />
-        <x-home.pricing :rows="$blogs" />
+        <x-home.pricing :rows="$expeditionPrices" />
         <x-home.contact />
-        <x-home.blogs />
+        <x-home.blogs :posts="$featuredPosts" />
     </main>
 
     <x-footer />

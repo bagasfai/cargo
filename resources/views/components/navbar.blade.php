@@ -4,16 +4,16 @@
     'links' => [],
     'contactBlocks' => [],
     'ctaLabel' => 'Cek Tarif',
-    'ctaHref' => '#pricing'
+    'ctaHref' => url('/#pricing')
 ])
 
 @php
     $defaultLinks = [
-        ['label' => 'Home', 'href' => '#hero'],
-        ['label' => 'Tentang Kami', 'href' => '#why-us'],
-        ['label' => 'Layanan', 'href' => '#services'],
-        ['label' => 'Tarif', 'href' => '#pricing'],
-        ['label' => 'Kontak', 'href' => '#contact'],
+        ['label' => 'Home', 'href' => url('/#hero')],
+        ['label' => 'Tentang Kami', 'href' => url('/#why-us')],
+        ['label' => 'Layanan', 'href' => url('/#services')],
+        ['label' => 'Tarif', 'href' => url('/#pricing')],
+        ['label' => 'Kontak', 'href' => url('/#contact')],
     ];
 
     $defaultContacts = [

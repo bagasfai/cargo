@@ -14,6 +14,7 @@ class BlogTagController extends Controller
 
         $tags = BlogTag::query()
             ->when($request->name, fn($q) => $q->where('name', 'like', "%{$request->name}%"))
+            ->when($request->slug, fn($q) => $q->where('slug', 'like', "%{$request->slug}%"))
             ->when($request->created_at, fn($q) => $q->whereDate('created_at', $request->created_at))
             ->when($request->sort, function ($q) use ($request) {
                 $q->orderBy($request->sort, $request->direction);
@@ -31,9 +32,9 @@ class BlogTagController extends Controller
         return view('blog_tag.create', compact('title'));
     }
 
-    public function store(Request $request)
+    public function store(BlogTagRequest $request)
     {
-        foreach ($request->input('tags', []) as $tagName) {
+        foreach ($request->validated()['tags'] as $tagName) {
             $existingTag = BlogTag::where('name', $tagName)->first();
             if ($existingTag) {
                 continue;

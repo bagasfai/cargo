@@ -17,6 +17,7 @@
         [
             'label' => 'Slug',
             'field' => 'slug',
+            'filter' => ['type' => 'text'],
         ],
         [
             'label' => 'Created',

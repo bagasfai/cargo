@@ -4,12 +4,12 @@
     <div class="overflow-hidden rounded-3xl border border-gray-100 bg-white">
         <div class="overflow-x-auto">
             <x-table :columns="[
-                ['label' => 'Kota Tujuan'],
-                ['label' => 'Provinsi'],
-                ['label' => 'Biaya/kg'],
-                ['label' => 'Min. Kirim'],
-                ['label' => 'Estimasi'],
-            ]" :rows="$rows" route="{{ route('blogs.index') }}" />
+                ['label' => 'Kota Tujuan', 'field' => 'city.name'],
+                ['label' => 'Provinsi', 'field' => 'province.name'],
+                ['label' => 'Biaya/kg', 'field' => 'price_per_kg', 'format' => fn($row) => 'Rp ' . number_format($row->price_per_kg, 0, ',', '.')],
+                ['label' => 'Min. Kirim', 'field' => 'min_weight', 'format' => fn($row) => $row->min_weight . ' kg'],
+                ['label' => 'Estimasi', 'field' => 'estimated_delivery_time'],
+            ]" :rows="$rows" route="{{ url('/') }}" />
         </div>
     </div>
 </x-section>

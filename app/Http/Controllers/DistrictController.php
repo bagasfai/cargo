@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DistrictRequest;
 use App\Models\City;
 use App\Models\District;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class DistrictController extends Controller
             ->withQueryString();
 
         $cities = City::orderBy('name')->get();
-        
+
         return view('district.index', compact('districts', 'cities'));
     }
 
@@ -39,7 +40,7 @@ class DistrictController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(DistrictRequest $request)
     {
         //
     }
@@ -47,7 +48,7 @@ class DistrictController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(District $district)
     {
         //
     }
@@ -55,7 +56,7 @@ class DistrictController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(District $district)
     {
         //
     }
@@ -63,7 +64,7 @@ class DistrictController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(DistrictRequest $request, District $district)
     {
         //
     }
@@ -71,7 +72,7 @@ class DistrictController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(District $district)
     {
         //
     }

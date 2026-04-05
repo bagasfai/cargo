@@ -22,10 +22,19 @@ class BlogTagRequest extends FormRequest
     public function rules(): array
     {
         $blogTag = $this->route('blogTag');
-        
+
+        // Update: single tag
+        if ($blogTag) {
+            return [
+                'name' => ['required', 'string', 'max:255', 'unique:blog_tags,name,' . $blogTag->id],
+                'slug' => ['nullable', 'string', 'max:255', 'unique:blog_tags,slug,' . $blogTag->id],
+            ];
+        }
+
+        // Store: array of tag names
         return [
-            'name' => ['required', 'string', 'max:255', 'unique:blog_tags,name,' . ($blogTag->id ?? 'NULL')],
-            'slug' => ['nullable', 'string', 'max:255', 'unique:blog_tags,slug,' . ($blogTag->id ?? 'NULL')],
+            'tags'   => ['required', 'array', 'min:1'],
+            'tags.*' => ['required', 'string', 'max:255'],
         ];
     }
 }
