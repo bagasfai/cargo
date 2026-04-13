@@ -12,6 +12,7 @@ use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VillageController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
@@ -66,6 +67,11 @@ Route::prefix('api')->group(function () {
     Route::get('districts/{district}/villages', function (\App\Models\District $district) {
         return $district->villages()->orderBy('name')->get(['id', 'name']);
     });
+});
+
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
+    return 'Storage Linked!';
 });
 
 require __DIR__ . '/template.php';
