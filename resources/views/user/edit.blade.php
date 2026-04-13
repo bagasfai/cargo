@@ -19,9 +19,12 @@
             @method('PUT')
             <div class="grid grid-cols-1 gap-6">
                 <div class="lg:col-span-2 space-y-6">
-                    <x-form.input name="name" label="Name" placeholder="Enter user name" :value="old('name', $user->name)" />
-                    <x-form.textarea name="description" label="Description"
-                        placeholder="Short description for SEO & preview" :value="old('description', $user->description)" />
+                    <x-form.input name="name" label="Name" placeholder="Enter name" :value="old('name', $user->name)" />
+                    <x-form.input name="email" label="Email" placeholder="Enter email" :value="old('email', $user->email)" />
+                    <x-form.input name="password" type="password" label="Password" placeholder="Enter password" />
+                    <x-form.input name="password_confirmation" type="password" label="Confirm Password"
+                        placeholder="Confirm password" />
+                    <x-form.select name="role" label="Role" :options="$roles->pluck('name', 'name')->toArray()" placeholder="Select role" :value="old('role', $user->roles->first()?->name)" />
                 </div>
             </div>
 
