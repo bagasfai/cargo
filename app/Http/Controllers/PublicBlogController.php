@@ -20,7 +20,7 @@ class PublicBlogController extends Controller
         $blog->load(['categories', 'tags', 'author', 'media']);
 
         // Inject SEO meta tags via our centralized helper
-        // SeoManager::forBlog($blog);
+        SeoManager::forBlog($blog);
 
         return view('public.blog.show', compact('blog'));
     }

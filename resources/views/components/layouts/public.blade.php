@@ -8,8 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ 'Gumarang Indo Exress | Ekspedisi Termurah Terdekat Dari Rumah Anda' }}</title>
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>[x-cloak]{display:none;}</style>

@@ -27,6 +27,7 @@ class BlogService
 
             $data['author_id'] = $authorId;
             $this->applySeoFallbacks($data);
+            $this->applyPublishedAt($data);
 
             $blog = Blog::create($data);
 
@@ -59,6 +60,7 @@ class BlogService
             }
 
             $this->applySeoFallbacks($data);
+            $this->applyPublishedAt($data, $blog);
 
             $blog->update($data);
 
@@ -97,6 +99,26 @@ class BlogService
     {
         $data['seo_title']       ??= $data['title'] ?? null;
         $data['seo_description'] ??= $data['excerpt'] ?? null;
+    }
+
+    /**
+     * Auto-populate published_at when status is 'published' and the field is empty.
+     *
+     * @param  array<string, mixed>  $data
+     * @param  Blog|null              $blog  Existing blog (on update) to check current value.
+     */
+    private function applyPublishedAt(array &$data, ?Blog $blog = null): void
+    {
+        if (($data['status'] ?? null) !== 'published') {
+            return;
+        }
+
+        $alreadySet = ! empty($data['published_at'])
+            || ($blog && $blog->published_at);
+
+        if (! $alreadySet) {
+            $data['published_at'] = now();
+        }
     }
 
     /**

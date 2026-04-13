@@ -69,9 +69,4 @@ Route::prefix('api')->group(function () {
     });
 });
 
-Route::get('/linkstorage', function () {
-    Artisan::call('storage:link');
-    return 'Storage Linked!';
-});
-
 require __DIR__ . '/template.php';
