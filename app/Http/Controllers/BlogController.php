@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\SeoManager;
 use App\Http\Requests\BlogRequest;
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\BlogTag;
-use Artesaos\SEOTools\SEOTools;
+use App\Services\BlogService;
+use Artesaos\SEOTools\Facades\SEOTools;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class BlogController extends Controller
 {
-    public function index()
+    public function __construct(
+        private readonly BlogService $blogService,
+    ) {}
+
+    public function index(): View
     {
         $blogs = Blog::with('author')
             ->latest()
@@ -23,7 +28,7 @@ class BlogController extends Controller
         return view('blog.index', compact('blogs'));
     }
 
-    public function create()
+    public function create(): View
     {
         return view('blog.create', [
             'categories' => BlogCategory::all(),
@@ -31,40 +36,20 @@ class BlogController extends Controller
         ]);
     }
 
-    public function store(BlogRequest $request)
+    public function store(BlogRequest $request): RedirectResponse
     {
-        DB::transaction(function () use ($request) {
-
-            $data = $request->validated();
-            $data['author_id'] = Auth::id();
-
-            // SEO fallback
-            $data['seo_title'] ??= $data['title'];
-            $data['seo_description'] ??= $data['excerpt'];
-
-            $blog = Blog::create($data);
-
-            // Categories
-            $blog->categories()->sync($request->categories);
-
-            // Tags
-            $tags = collect($request->tags)
-                ->map(fn($tag) => trim($tag))
-                ->filter()
-                ->map(
-                    fn($tag) =>
-                    BlogTag::firstOrCreate(['name' => $tag])
-                );
-
-            $blog->tags()->sync($tags->pluck('id'));
-        });
+        $this->blogService->store(
+            data: $request->validated(),
+            authorId: Auth::id(),
+            featuredImage: $request->file('featured_image'),
+        );
 
         return redirect()
             ->route('blogs.index')
             ->with('success', 'Blog berhasil dibuat');
     }
 
-    public function edit(Blog $blog)
+    public function edit(Blog $blog): View
     {
         return view('blog.edit', [
             'blog' => $blog->load('categories', 'tags'),
@@ -73,52 +58,30 @@ class BlogController extends Controller
         ]);
     }
 
-    public function update(BlogRequest $request, Blog $blog)
+    public function update(BlogRequest $request, Blog $blog): RedirectResponse
     {
-        DB::transaction(function () use ($request, $blog) {
-
-            $data = $request->validated();
-
-            // Jangan ubah slug kalau sudah publish
-            if ($blog->status === 'published') {
-                unset($data['slug']);
-            }
-
-            $data['seo_title'] ??= $data['title'];
-            $data['seo_description'] ??= $data['excerpt'];
-
-            $blog->update($data);
-
-            $blog->categories()->sync($request->categories);
-
-            $tags = collect(explode(',', $request->tags))
-                ->map(fn($tag) => trim($tag))
-                ->filter()
-                ->map(
-                    fn($tag) =>
-                    BlogTag::firstOrCreate(['name' => $tag])
-                );
-
-            $blog->tags()->sync($tags->pluck('id'));
-        });
+        $this->blogService->update(
+            blog: $blog,
+            data: $request->validated(),
+            featuredImage: $request->file('featured_image'),
+        );
 
         return back()->with('success', 'Blog berhasil diperbarui');
     }
 
-    public function destroy(Blog $blog)
+    public function destroy(Blog $blog): RedirectResponse
     {
         $blog->delete();
 
         return back()->with('success', 'Blog berhasil dihapus');
     }
 
-    public function show(Blog $blog)
+    public function show(Blog $blog): View
     {
-        // SeoManager::forBlog($blog);
         return view('blog.show', compact('blog'));
     }
 
-    public function category(string $slug)
+    public function category(string $slug): View
     {
         $category = BlogCategory::where('slug', $slug)->firstOrFail();
 
@@ -134,7 +97,7 @@ class BlogController extends Controller
         return view('blog.category', compact('category', 'blogs'));
     }
 
-    public function tag(string $slug)
+    public function tag(string $slug): View
     {
         $tag = BlogTag::where('slug', $slug)->firstOrFail();
 

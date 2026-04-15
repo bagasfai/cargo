@@ -15,6 +15,9 @@ class BlogCategoryController extends Controller
             ->when($request->name, fn($q) => $q->where('name', 'like', "%{$request->name}%"))
             ->when($request->description, fn($q) => $q->where('description', 'like', "%{$request->description}%"))
             ->when($request->created_at, fn($q) => $q->whereDate('created_at', $request->created_at))
+            ->when($request->sort, function ($q) use ($request) {
+                $q->orderBy($request->sort, $request->direction);
+            })
             ->paginate(10)
             ->withQueryString();
 

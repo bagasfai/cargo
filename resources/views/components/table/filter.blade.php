@@ -1,27 +1,18 @@
 @props(['column'])
 
 @php
-    $name = $column['field'];
+    $name = $column['filter_key'] ?? $column['field'];
     $filter = $column['filter'];
 @endphp
 
 @if (in_array($filter['type'], ['text', 'number']))
     <x-form.input :type="$filter['type']" :value="request($name)" x-model="filters['{{ $name }}']" @change="apply" />
 @elseif ($filter['type'] === 'select')
-    <select x-model="filters['{{ $name }}']" @change="apply" {{ $filter['multiple'] ?? false ? 'multiple' : '' }}
-        class="w-full rounded-lg border py-2 text-sm
-               bg-white dark:bg-gray-900
-               text-gray-900 dark:text-gray-100
-               border-gray-300 dark:border-gray-700
-               focus:ring-2 focus:ring-blue-500 focus:outline-none">
-        @unless ($filter['multiple'] ?? false)
-            <option value="">All</option>
-        @endunless
-
-        @foreach ($filter['options'] as $key => $label)
-            <option value="{{ $key }}">{{ $label }}</option>
-        @endforeach
-    </select>
+    <x-form.select-search 
+        :name="$column['filter_key'] ?? $column['field']"
+        :options="$filter['options']" 
+        :value="request($column['filter_key'] ?? $column['field'])"
+    />
 @elseif ($filter['type'] === 'date')
     <div
         @date-change="

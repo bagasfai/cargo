@@ -21,6 +21,13 @@ class UserController extends Controller
         return view('user.index', compact('users', 'roles'));
     }
 
+    public function show($id)
+    {
+        $user = User::with('roles')->findOrFail($id);
+
+        return view('user.show', compact('user'));
+    }
+
     public function create()
     {
         $roles = Role::all();

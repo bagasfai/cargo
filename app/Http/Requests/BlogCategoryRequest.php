@@ -21,9 +21,11 @@ class BlogCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        $blogCategory = $this->route('blogCategory');
+        
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255', 'unique:blog_categories,slug'],
+            'name' => ['required', 'string', 'max:255', 'unique:blog_categories,name,' . ($blogCategory->id ?? 'NULL')],
+            'slug' => ['nullable', 'string', 'max:255', 'unique:blog_categories,slug,' . ($blogCategory->id ?? 'NULL')],
             'description' => ['nullable', 'string'],
         ];
     }

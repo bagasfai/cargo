@@ -19,28 +19,47 @@ class BlogRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+    /**
+     * Normalise the is_featured checkbox: browsers omit unchecked checkboxes,
+     * so we default to false before validation runs.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'is_featured' => $this->boolean('is_featured'),
+        ]);
+    }
+
     public function rules(): array
     {
+        $isUpdate = $this->route('blog') !== null;
+
         return [
-            'title' => ['required', 'max:255'],
-            'slug' => ['nullable', 'max:255'],
-            'excerpt' => ['nullable', 'max:300'],
-            'content' => ['required'],
+            'title'       => ['required', 'string', 'max:255'],
+            'slug'        => ['nullable', 'string', 'max:255'],
+            'excerpt'     => ['nullable', 'string', 'max:300'],
+            'content'     => ['required', 'string'],
 
-            'seo_title' => ['nullable', 'max:60'],
-            'seo_description' => ['nullable', 'max:160'],
-            'seo_keywords' => ['nullable', 'max:255'],
+            'featured_image' => [
+                $isUpdate ? 'nullable' : 'nullable',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:2048',
+            ],
 
-            'status' => ['required', 'in:draft,published'],
+            'seo_title'       => ['nullable', 'string', 'max:60'],
+            'seo_description' => ['nullable', 'string', 'max:160'],
+            'seo_keywords'    => ['nullable', 'string', 'max:255'],
+
+            'is_featured'  => ['nullable', 'boolean'],
+
+            'status'       => ['required', 'in:draft,published'],
             'published_at' => ['nullable', 'date'],
 
-            'author_id' => ['nullable', 'exists:users,id'],
+            'categories'   => ['nullable', 'array'],
+            'categories.*' => ['integer', 'exists:blog_categories,id'],
 
-            'categories' => ['nullable', 'array'],
-            'categories.*' => ['exists:blog_categories,id'],
-
-            'tags' => ['nullable', 'array'],
-            'tags.*' => ['exists:blog_tags,name'],
+            'tags' => ['nullable'],
         ];
     }
 }

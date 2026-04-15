@@ -56,4 +56,8 @@
             </option>
         @endforeach
     </select>
+
+    @if ($name)
+        <x-form.error :name="$name" />
+    @endif
 </div>
