@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 
@@ -29,6 +30,8 @@ class GenerateSitemap extends Command
      */
     public function handle()
     {
+        Log::info('Starting sitemap generation...');
+
         $sitemap = Sitemap::create();
 
         // === Static pages ===
@@ -65,7 +68,7 @@ class GenerateSitemap extends Command
 
         $sitemap->writeToFile(public_path('sitemap.xml'));
 
-        $this->info('Sitemap generated successfully.');
+        Log::info('Sitemap generated successfully.');
 
         return self::SUCCESS;
     }
