@@ -1,4 +1,4 @@
-@props(['class', 'columns', 'rows', 'route', 'actions' => null])
+@props(['class', 'columns', 'rows', 'route', 'actions' => null, 'fragment' => null])
 
 <div x-data="{
     filters: @js(request()->all()),
@@ -32,7 +32,7 @@
                 {{-- HEADER ROW --}}
                 <tr>
                     @foreach ($columns as $column)
-                        <x-table.th :label="$column['label']" :field="$column['field'] ?? null" :route="$route" />
+                        <x-table.th :label="$column['label']" :field="$column['field'] ?? null" :route="$route" :fragment="$fragment" />
                     @endforeach
 
                     @if ($actions)
@@ -94,6 +94,6 @@
 
     {{-- Pagination --}}
     <div class="dark:text-gray-300">
-        {{ $rows->links() }}
+        {{ $fragment ? $rows->fragment($fragment)->links() : $rows->links() }}
     </div>
 </div>

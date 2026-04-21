@@ -17,10 +17,44 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     $featuredPosts = \App\Models\Blog::active()->featured()->latest('published_at')->with('media')->take(4)->get();
-    $expeditionPrices = \App\Models\ExpeditionPrice::active()
+    $sort = request('sort', 'created_at');
+    $direction = request('direction', 'desc') === 'asc' ? 'asc' : 'desc';
+    $search = trim((string) request('search', ''));
+
+    $sortableFields = ['city.name', 'province.name', 'price_per_kg', 'min_weight', 'estimated_delivery_time', 'created_at'];
+    if (! in_array($sort, $sortableFields, true)) {
+        $sort = 'created_at';
+    }
+
+    $expeditionPricesQuery = \App\Models\ExpeditionPrice::query()
+        ->active()
         ->with(['province', 'city'])
-        ->latest()
-        ->paginate(10);
+        ->when($search !== '', function ($query) use ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->whereHas('city', fn($city) => $city->where('name', 'like', "%{$search}%"))
+                    ->orWhereHas('province', fn($province) => $province->where('name', 'like', "%{$search}%"))
+                    ->orWhere('estimated_delivery_time', 'like', "%{$search}%");
+            });
+        });
+
+    if ($sort === 'city.name') {
+        $expeditionPricesQuery
+            ->leftJoin('cities', 'expedition_prices.city_id', '=', 'cities.id')
+            ->select('expedition_prices.*')
+            ->orderBy('cities.name', $direction);
+    } elseif ($sort === 'province.name') {
+        $expeditionPricesQuery
+            ->leftJoin('provinces', 'expedition_prices.province_id', '=', 'provinces.id')
+            ->select('expedition_prices.*')
+            ->orderBy('provinces.name', $direction);
+    } else {
+        $expeditionPricesQuery->orderBy($sort, $direction);
+    }
+
+    $expeditionPrices = $expeditionPricesQuery
+        ->paginate(10)
+        ->withQueryString();
+
     return view('home', compact('featuredPosts', 'expeditionPrices'));
 });
 
