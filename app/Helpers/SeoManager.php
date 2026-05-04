@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Models\Blog;
+use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
 
 class SeoManager
@@ -15,6 +16,14 @@ class SeoManager
 
         SEOTools::setDescription(
             $blog->seo_description ?: $blog->excerpt
+        );
+
+        SEOTools::setCanonical(
+            url()->current()
+        );
+
+        SEOMeta::addKeyword(
+            explode(',', $blog->seo_keywords)
         );
 
         SEOTools::opengraph()->setUrl(url()->current());
