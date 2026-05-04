@@ -23,7 +23,7 @@ class SeoManager
         );
 
         SEOMeta::addKeyword(
-            explode(',', $blog->seo_keywords)
+            explode(',', $blog->tags->pluck('name')->implode(','))
         );
 
         SEOTools::opengraph()->setUrl(url()->current());
